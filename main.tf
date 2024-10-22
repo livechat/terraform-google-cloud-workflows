@@ -72,7 +72,7 @@ resource "google_cloud_scheduler_job" "workflow" {
   count            = local.enable_scheduler
   project          = var.project_id
   name             = var.workflow_trigger.cloud_scheduler.name
-  description      = "Cloud Scheduler for Workflow Jpb"
+  description      = "Cloud Scheduler for Workflow Job"
   schedule         = var.workflow_trigger.cloud_scheduler.cron
   time_zone        = var.workflow_trigger.cloud_scheduler.time_zone
   attempt_deadline = var.workflow_trigger.cloud_scheduler.deadline
@@ -108,7 +108,7 @@ resource "random_string" "string" {
 module "service_account" {
   count         = var.service_account_create ? 1 : 0
   source        = "terraform-google-modules/service-accounts/google"
-  version       = "~> 4.1.1"
+  version       = "~> 4.4.0"
   project_id    = var.project_id
   prefix        = "wf-${random_string.string[0].result}"
   names         = ["simple"]
